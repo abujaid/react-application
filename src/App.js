@@ -1,25 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Routes from './routes';
+import Navegation from './components/navbar';
+import store from './store/store';
+import jwt_decode from 'jwt-decode';
+import { setCurrentUser, logout } from './store/actions/authAction';
+import { setAuthToken } from './utils/setAuthToken';
 
 function App() {
+  if (localStorage.jwtToken) {
+    const token = localStorage.getItem('jwtToken');
+    setAuthToken(token);
+    const decoded = jwt_decode(token); // get user information
+    store.dispatch(setCurrentUser(decoded));
+    const currentTime = Date.now() / 1000;
+    if (decoded.exp < currentTime) {
+      // Logout user
+      store.dispatch(logout());
+      // Redirect to login
+      window.location.href = './login';
+    }
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <React.Fragment>
+        <Navegation />
+        <Route component={Routes} />
+      </React.Fragment>
+    </Router>
   );
 }
 
