@@ -30,7 +30,7 @@ class Navegation extends React.Component {
   };
   onLogout = () => {
     this.props.logout(this.props.history);
-    window.location.href = './login';
+    window.location.href = '/';
   };
   render() {
     const { isAuthenticated, name } = this.props.auth;
@@ -63,16 +63,23 @@ class Navegation extends React.Component {
                     <DropdownItem>Category</DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
-                <NavItem>
-                  <NavLink to="#" onClick={this.onLogout}>
-                    Logout
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <Link to="/#" className="text-white">
-                    Welcome {isAuthenticated.name}
-                  </Link>
-                </NavItem>
+                <UncontrolledDropdown nav inNavbar>
+                  <DropdownToggle nav caret>
+                    <b className="text-white"> Welcome {isAuthenticated.name}</b>
+                  </DropdownToggle>
+                  <DropdownMenu right>
+                    <DropdownItem>
+                      <Link to="#" className="nav-link">
+                        Manage Profile
+                      </Link>
+                    </DropdownItem>
+                    <DropdownItem>
+                      <Link to="#" className="nav-link" onClick={this.onLogout}>
+                        Logout
+                      </Link>
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
               </Nav>
             </Collapse>
           </Navbar>
@@ -83,10 +90,24 @@ class Navegation extends React.Component {
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
                 <NavItem>
-                  <NavLink href="/components/">Home</NavLink>
+                  <Link to="/" className="nav-link">
+                    Home
+                  </Link>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="#">Blog</NavLink>
+                  <Link to="/blog" className="nav-link">
+                    Blog
+                  </Link>
+                </NavItem>
+                <NavItem>
+                  <Link to="/contact" className="nav-link">
+                    Contact Us
+                  </Link>
+                </NavItem>
+                <NavItem>
+                  <Link to="/login" className="nav-link">
+                    Login
+                  </Link>
                 </NavItem>
               </Nav>
             </Collapse>

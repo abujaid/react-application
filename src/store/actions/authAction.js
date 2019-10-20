@@ -3,6 +3,7 @@ import { GET_ERRORS, SET_CURRENT_USER } from './types';
 import jwt_decode from 'jwt-decode';
 import { setAuthToken } from '../../utils/setAuthToken';
 
+// register
 export const register = (userData, history) => {
   return dispatch => {
     axios
@@ -17,6 +18,7 @@ export const register = (userData, history) => {
   };
 };
 
+// login
 export const login = (userData, history) => dispatch => {
   axios
     .post(`api/users/login`, userData)
@@ -32,6 +34,7 @@ export const login = (userData, history) => dispatch => {
     });
 };
 
+// set user
 export const setCurrentUser = function(decoded) {
   return {
     type: SET_CURRENT_USER,
@@ -39,9 +42,10 @@ export const setCurrentUser = function(decoded) {
   };
 };
 
+// logout
 export const logout = history => dispatch => {
   localStorage.removeItem('jwtToken');
   setAuthToken(false);
   dispatch(setCurrentUser({}));
-  history.push('/login');
+  history.push('/dashboard');
 };
