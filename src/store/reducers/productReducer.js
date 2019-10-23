@@ -1,10 +1,18 @@
-import { ADD_PRODUCT } from '../actions/types';
+import { ADD_PRODUCT, GET_PRODUCTS } from '../actions/types';
 
 const initialState = {
-  products: []
+  products: [],
+  isLoading: true
 };
 const productReducer = function(state = initialState, action) {
   switch (action.type) {
+    case GET_PRODUCTS: {
+      return {
+        ...state,
+        products: action.payload,
+        isLoading: false
+      };
+    }
     case ADD_PRODUCT: {
       return {
         products: action.payload
@@ -14,3 +22,5 @@ const productReducer = function(state = initialState, action) {
       return state;
   }
 };
+
+export default productReducer;

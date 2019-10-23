@@ -13,7 +13,7 @@ class Add extends Component {
     this.state = {
       title: '',
       price: '',
-      qty: '',
+      quantity: '',
       description: '',
       errors: {}
     };
@@ -35,11 +35,11 @@ class Add extends Component {
       quantity: quantity,
       price: price
     };
-    this.props.addProduct(data);
+    this.props.addProduct(data, this.props.history);
   };
 
   render() {
-    const { title, price, qty, description, errors } = this.state;
+    const { title, price, quantity, description, errors } = this.state;
     console.log(errors);
     return (
       <div className="container mt-5">
@@ -73,8 +73,8 @@ class Add extends Component {
               <p className="red-text">{errors.quantity}</p>
               <Input
                 type="number"
-                name="qty"
-                value={qty}
+                name="quantity"
+                value={quantity}
                 htmlFor="quantity"
                 label="Product Quantity"
                 controlFunc={this.handleChange}
