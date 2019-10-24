@@ -7,20 +7,12 @@ const Product = require('../../models/Product');
 // @route GET api/products
 // @access Private
 router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
+  console.log(res);
   Product.find()
     .sort({ date: -1 })
     .then(products => res.status(200).json(products));
 });
 
-// @route GET api/products/id
-// @access Private
-
-router.get('/product/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
-  const id = req.params.id;
-  Product.findOne({ _id: id })
-    .then(product => json({ product }))
-    .catch(err => res.status(404).json({ success: false }));
-});
 // @route POST api/products/create
 // @desc Create a new task
 // @access Private
@@ -56,8 +48,19 @@ router.post(
  * desc:delete the product
  */
 router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+  console.log(req.params.id);
   Product.findById(req.params.id)
     .then(product => product.remove().then(() => res.json({ success: true })))
+    .catch(err => res.status(404).json({ success: false }));
+});
+
+/**
+ * route api/products/id
+ * desc:get the product
+ */
+router.get('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Product.findById(req.params.id)
+    .then(result => res.json({ result }))
     .catch(err => res.status(404).json({ success: false }));
 });
 /**
