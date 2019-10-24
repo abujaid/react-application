@@ -9,9 +9,18 @@ const Product = require('../../models/Product');
 router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
   Product.find()
     .sort({ date: -1 })
-    .then(products => res.json(products));
+    .then(products => res.status(200).json(products));
 });
 
+// @route GET api/products/id
+// @access Private
+
+router.get('/product/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
+  const id = req.params.id;
+  Product.findOne({ _id: id })
+    .then(product => json({ product }))
+    .catch(err => res.status(404).json({ success: false }));
+});
 // @route POST api/products/create
 // @desc Create a new task
 // @access Private
