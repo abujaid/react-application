@@ -60,9 +60,10 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), (req, re
  */
 router.get('/:id', passport.authenticate('jwt', { session: false }), (req, res) => {
   Product.findById(req.params.id)
-    .then(result => res.json({ result }))
+    .then(result => res.json(result))
     .catch(err => res.status(404).json({ success: false }));
 });
+
 /**
  * route:api/products/id
  * desc:update product

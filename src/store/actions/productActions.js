@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_PRODUCT, GET_ERRORS, GET_PRODUCTS } from '../actions/types';
+import { ADD_PRODUCT, GET_ERRORS, GET_PRODUCTS, GET_PRODUCT } from '../actions/types';
 
 // Add Product
 export const addProduct = (data, history) => dispatch => {
@@ -25,7 +25,16 @@ export const getProduct = () => dispatch => {
       dispatch({ type: GET_ERRORS, payload: err.response.data });
     });
 };
-
+// Get Product by id
+export const getProductById = id => dispatch => {
+  axios
+    .get(`/api/products/${id}`)
+    .then(result => {
+      dispatch({ type: GET_PRODUCT, payload: result.data });
+      // console.log(result);
+    })
+    .catch(err => console.log(err));
+};
 // Remove Product
 export const removeProduct = id => dispatch => {
   axios

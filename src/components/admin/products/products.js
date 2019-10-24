@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import moment from 'moment';
 
 import Swal from 'sweetalert2';
@@ -57,7 +57,9 @@ class Products extends Component {
                       <button className="btn btn-danger" onClick={() => this.removeProduct(_id)}>
                         X
                       </button>
-                      <button className="btn btn-primary">Edit</button>
+                      <Link to={`/product/edit/${_id}`} className="btn btn-primary">
+                        Edit
+                      </Link>
                     </td>
                   </tr>
                 ))

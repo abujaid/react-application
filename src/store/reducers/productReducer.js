@@ -1,4 +1,4 @@
-import { ADD_PRODUCT, GET_PRODUCTS } from '../actions/types';
+import { ADD_PRODUCT, GET_PRODUCTS, GET_PRODUCT } from '../actions/types';
 
 const initialState = {
   products: [],
@@ -13,10 +13,16 @@ const productReducer = function(state = initialState, action) {
         isLoading: false
       };
     }
+    case GET_PRODUCT: {
+      return {
+        ...state,
+        products: state.products.filter(item => item._id === action.payload._id),
+        isLoading: false
+      };
+    }
     case ADD_PRODUCT: {
       return {
         ...state,
-        // products: action.payload
         products: [action.payload, ...state.products]
       };
     }

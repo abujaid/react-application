@@ -9,6 +9,7 @@ import Products from './components/admin/products/products';
 import PrivateRoute from './components/private-route/private-route';
 import Home from './components/home';
 import Blog from './components/blog';
+import Edit from './components/admin/products/edit';
 
 const routes = () => {
   return (
@@ -20,6 +21,7 @@ const routes = () => {
       <PrivateRoute exact path="/dashboard" component={Dashboard} />
       <PrivateRoute path="/add-product" component={Add} />
       <PrivateRoute path="/products" component={Products} />
+      <PrivateRoute path="/product/edit/:id" component={Edit} />
     </Switch>
   );
 };
