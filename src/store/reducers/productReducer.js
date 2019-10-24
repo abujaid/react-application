@@ -15,7 +15,9 @@ const productReducer = function(state = initialState, action) {
     }
     case ADD_PRODUCT: {
       return {
-        products: action.payload
+        ...state,
+        // products: action.payload
+        products: [action.payload, ...state.products]
       };
     }
     default:

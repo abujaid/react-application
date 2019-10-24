@@ -23,9 +23,10 @@ class Products extends Component {
     this.setState({ success: true });
 
     Swal.fire({
-      title: 'Success',
+      title: 'Deleted',
       type: 'success',
-      text: 'Recard has been delete.'
+      text: 'your recard has been deleted.',
+      timer: 1500
     });
   };
   render() {

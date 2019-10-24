@@ -10,7 +10,7 @@ export const addProduct = (data, history) => dispatch => {
       history.push('/products');
     })
     .catch(err => {
-      dispatch({ type: GET_ERRORS, payload: err.response.data });
+      console.log(err);
     });
 };
 
