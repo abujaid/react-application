@@ -40,7 +40,6 @@ class Add extends Component {
 
   render() {
     const { title, price, quantity, description, errors } = this.state;
-    console.log(errors);
     return (
       <div className="container mt-5">
         <div className="row">

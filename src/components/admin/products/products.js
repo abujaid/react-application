@@ -24,9 +24,11 @@ class Products extends Component {
     this.setState({ success: true });
 
     Swal.fire({
+      toast: true,
       title: 'Deleted',
+      position: 'bottom-end',
       type: 'success',
-      text: 'your recard has been deleted.',
+      text: 'your record has been deleted.',
       timer: 1500
     });
   };
@@ -61,7 +63,7 @@ class Products extends Component {
                     <td>
                       <button className="btn btn-danger" onClick={() => this.removeProduct(_id)}>
                         X
-                      </button>
+                      </button>{' '}
                       <Link to={`/product/edit/${_id}`} className="btn btn-primary">
                         Edit
                       </Link>
