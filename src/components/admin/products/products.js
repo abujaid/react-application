@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
+import { Spinner } from 'reactstrap';
 import moment from 'moment';
 
 import Swal from 'sweetalert2';
@@ -14,7 +15,7 @@ class Products extends Component {
       success: false
     };
   }
-  hideAlert = () => {};
+
   componentDidMount() {
     this.props.getProduct();
   }
@@ -33,21 +34,25 @@ class Products extends Component {
     const { products, isLoading } = this.props.products;
     return (
       <div className="container">
-        <div className="row">
-          <table className="table">
-            <thead>
-              <tr>
-                {/* <td>Id</td> */}
-                <td>Date</td>
-                <td>Product Name</td>
-                <td>Price</td>
-                <td>Quantity</td>
-                <td>Action</td>
-              </tr>
-            </thead>
-            <tbody>
-              {!isLoading ? (
-                products.map(({ _id, title, description, price, quantity, date }) => (
+        {!isLoading ? (
+          <div className="row">
+            <Link to="/add-product" className="btn btn-primary mt-2 mb-2">
+              Add Product
+            </Link>
+
+            <table className="table">
+              <thead>
+                <tr>
+                  {/* <td>Id</td> */}
+                  <td>Date</td>
+                  <td>Product Name</td>
+                  <td>Price</td>
+                  <td>Quantity</td>
+                  <td>Action</td>
+                </tr>
+              </thead>
+              <tbody>
+                {products.map(({ _id, title, description, price, quantity, date }) => (
                   <tr key={_id}>
                     <td>{moment(date).format('DD/MM/YYYY')}</td>
                     <td>{title}</td>
@@ -62,13 +67,18 @@ class Products extends Component {
                       </Link>
                     </td>
                   </tr>
-                ))
-              ) : (
-                <h1>loading.........</h1>
-              )}
-            </tbody>
-          </table>
-        </div>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className="text-center mt-5">
+            <Spinner type="grow" color="success" />
+            <Spinner type="grow" color="danger" />
+            <Spinner type="grow" color="warning" />
+            <Spinner type="grow" color="info" />
+          </div>
+        )}
       </div>
     );
   }
