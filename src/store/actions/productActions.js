@@ -7,7 +7,7 @@ export const addProduct = (data, history) => dispatch => {
     .post(`/api/products/create`, data)
     .then(result => {
       dispatch({ type: ADD_PRODUCT, payload: result.data });
-      history.push('/products');
+      history.push('/admin/products');
     })
     .catch(err => {
       dispatch({ type: GET_ERRORS, payload: err.response.data });

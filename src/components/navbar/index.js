@@ -38,7 +38,9 @@ class Navegation extends React.Component {
       <div>
         {isAuthenticated ? (
           <Navbar color="primary" light expand="md">
-            <NavbarBrand to="/dashboard">Dashboard</NavbarBrand>
+            <NavbarBrand tag={Link} to="/admin/dashboard">
+              Dashboard
+            </NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
@@ -54,13 +56,21 @@ class Navegation extends React.Component {
                   </DropdownToggle>
                   <DropdownMenu right>
                     <DropdownItem>
-                      <Link to="/add-product">Add New</Link>
+                      <NavLink tag={Link} to="/admin/add-product">
+                        Add New
+                      </NavLink>
                     </DropdownItem>
                     <DropdownItem>
-                      <Link to="/products">Products</Link>
+                      <NavLink tag={Link} to="/admin/products">
+                        Products
+                      </NavLink>
                     </DropdownItem>
                     <DropdownItem divider />
-                    <DropdownItem>Category</DropdownItem>
+                    <DropdownItem>
+                      <NavLink tag={Link} to="#">
+                        Category
+                      </NavLink>
+                    </DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
                 <UncontrolledDropdown nav inNavbar>

@@ -15,13 +15,13 @@ const routes = () => {
   return (
     <Switch>
       <Route exact path="/" component={Home} />
-      <Route exact path="/blog" component={Blog} />
+      <Route path="/blog" component={Blog} />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
-      <PrivateRoute exact path="/dashboard" component={Dashboard} />
-      <PrivateRoute path="/add-product" component={Add} />
-      <PrivateRoute path="/products" component={Products} />
-      <PrivateRoute path="/product/edit/:id" component={Edit} />
+      <PrivateRoute path="/admin/dashboard" component={Dashboard} />
+      <PrivateRoute path="/admin/add-product" component={Add} />
+      <PrivateRoute path="/admin/products" component={Products} />
+      <PrivateRoute path="/admin/product/edit/:id" component={Edit} />
     </Switch>
   );
 };

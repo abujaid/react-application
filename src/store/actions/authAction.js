@@ -27,7 +27,7 @@ export const login = (userData, history) => dispatch => {
       localStorage.setItem('jwtToken', token);
       const decoded = jwt_decode(token); // get user information
       dispatch(setCurrentUser(decoded));
-      history.push('/dashboard');
+      history.push('/admin/dashboard');
     })
     .catch(err => {
       dispatch({ type: GET_ERRORS, payload: err.response.data });

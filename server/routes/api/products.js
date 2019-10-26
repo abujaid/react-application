@@ -3,6 +3,20 @@ const router = express.Router();
 const passport = require('passport');
 const validateProductInput = require('../../validation/product');
 const Product = require('../../models/Product');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, 'uploads/');
+  },
+  filename: function(req, file, cb) {
+    cb(null, new Date().getTime() + file.originalname);
+  }
+});
+
+const upload = multer({
+  storage: storage
+});
 
 // @route GET api/products
 // @access Private
@@ -16,10 +30,11 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
 // @route POST api/products/create
 // @desc Create a new task
 // @access Private
+
 router.post(
   '/create',
+  upload.single('productImage'),
   passport.authenticate('jwt', { session: false }),
-
   (req, res) => {
     const { errors, isValid } = validateProductInput(req.body);
     // Check validation
@@ -30,7 +45,8 @@ router.post(
       title: req.body.title,
       description: req.body.description,
       quantity: req.body.quantity,
-      price: req.body.price
+      price: req.body.price,
+      productImage: req.file.path
     });
 
     NEW_PRODUCT.save()
