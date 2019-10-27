@@ -46,8 +46,6 @@ class Products extends Component {
             <Table responsive striped>
               <thead>
                 <tr>
-                  {/* <td>Id</td> */}
-
                   <th>Date</th>
                   <th>Image</th>
                   <th>Description</th>
@@ -64,31 +62,44 @@ class Products extends Component {
                 </tr>
               </thead>
               <tbody>
-                {products.map(({ _id, title, description, price, quantity, date }) => (
-                  <tr key={_id}>
-                    <td>{moment(date).format('DD/MM/YYYY')}</td>
-                    <td>image</td>
-                    <td>{description}</td>
-                    <td>{title}</td>
-                    <td>{price} &#8377;</td>
-                    <td>{quantity}</td>
-                    <td>cat</td>
-                    <td>manu</td>
-                    <td>100</td>
-                    <td>10</td>
-                    <td>20</td>
-                    <td>A-row</td>
-                    <td></td>
-                    <td>
-                      <button className="btn btn-danger" onClick={() => this.removeProduct(_id)}>
-                        X
-                      </button>{' '}
-                      <Link to={`/product/edit/${_id}`} className="btn btn-primary">
-                        Edit
-                      </Link>
-                    </td>
-                  </tr>
-                ))}
+                {products.map(
+                  ({ _id, title, description, price, quantity, date, productImage }) => (
+                    <tr key={_id}>
+                      <td>{moment(date).format('DD/MM/YYYY')}</td>
+                      <td>
+                        {productImage ? (
+                          <img
+                            src={`${window.location.origin}/${productImage}`}
+                            alt={title}
+                            style={{ width: '110px' }}
+                            className="zoom-out"
+                          />
+                        ) : (
+                          'No Image'
+                        )}
+                      </td>
+                      <td>{description}</td>
+                      <td>{title}</td>
+                      <td>{price} &#8377;</td>
+                      <td>{quantity}</td>
+                      <td>cat</td>
+                      <td>manu</td>
+                      <td>100</td>
+                      <td>10</td>
+                      <td>20</td>
+                      <td>A-row</td>
+                      <td></td>
+                      <td>
+                        <button className="btn btn-danger" onClick={() => this.removeProduct(_id)}>
+                          X
+                        </button>{' '}
+                        <Link to={`/product/edit/${_id}`} className="btn btn-primary">
+                          Edit
+                        </Link>
+                      </td>
+                    </tr>
+                  )
+                )}
               </tbody>
             </Table>
           </div>

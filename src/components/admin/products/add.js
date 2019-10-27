@@ -15,11 +15,17 @@ class Add extends Component {
       price: '',
       quantity: '',
       description: '',
+      selectedFile: null,
       errors: {}
     };
   }
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
+  };
+  handleChangeFile = e => {
+    this.setState({
+      selectedFile: e.target.files[0]
+    });
   };
   static getDerivedStateFromProps(props, state) {
     if (props.error !== state.error) {
@@ -28,12 +34,15 @@ class Add extends Component {
   }
   handleSubmit = event => {
     event.preventDefault();
+    const formData = new FormData();
+    formData.append('file', this.state.selectedFile, this.state.selectedFile.name);
     const { title, description, quantity, price } = this.state;
     const data = {
       title: title,
       description: description,
       quantity: quantity,
-      price: price
+      price: price,
+      productImage: formData
     };
     this.props.addProduct(data, this.props.history);
   };
@@ -44,7 +53,7 @@ class Add extends Component {
       <div className="container mt-5">
         <div className="row">
           <div className="col-sm-6">
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit} enctype="multipart/form-data">
               <p className="red-text">{errors.title}</p>
               <Input
                 type="text"
@@ -92,6 +101,9 @@ class Add extends Component {
                   invalid: errors.description
                 })}
               />
+              <div className="form-group">
+                <input type="file" className="form-control" onChange={this.handleChangeFile} />
+              </div>
               <Button type="submit" buttonName="Add New Product" className="btn btn-primary" />
             </form>
           </div>

@@ -7,10 +7,10 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, 'uploads/');
+    cb(null, 'uploads');
   },
   filename: function(req, file, cb) {
-    cb(null, new Date().getTime() + file.originalname);
+    cb(null, Date.now() + '-' + file.originalname);
   }
 });
 
@@ -21,7 +21,6 @@ const upload = multer({
 // @route GET api/products
 // @access Private
 router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
-  console.log(res);
   Product.find()
     .sort({ date: -1 })
     .then(products => res.status(200).json(products));
@@ -33,7 +32,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
 
 router.post(
   '/create',
-  upload.single('productImage'),
+  upload.single('file'),
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const { errors, isValid } = validateProductInput(req.body);
