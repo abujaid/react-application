@@ -22,9 +22,9 @@ class Add extends Component {
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
-  handleChangeFile = e => {
+  handleChangeFile = event => {
     this.setState({
-      selectedFile: e.target.files[0]
+      selectedFile: event.target.files[0]
     });
   };
   static getDerivedStateFromProps(props, state) {
