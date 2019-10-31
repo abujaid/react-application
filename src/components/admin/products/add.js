@@ -35,16 +35,21 @@ class Add extends Component {
   handleSubmit = event => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append('file', this.state.selectedFile, this.state.selectedFile.name);
+    formData.append('file', this.state.selectedFile);
     const { title, description, quantity, price } = this.state;
-    const data = {
-      title: title,
-      description: description,
-      quantity: quantity,
-      price: price,
-      productImage: formData
-    };
-    this.props.addProduct(data, this.props.history);
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('quantity', quantity);
+    formData.append('price', price);
+
+    // const data = {
+    //   title: title,
+    //   description: description,
+    //   quantity: quantity,
+    //   price: price,
+    //   productImage: formData
+    // };
+    this.props.addProduct(formData, this.props.history);
   };
 
   render() {
